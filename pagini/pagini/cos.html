@@ -1,31 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name ="viewport" content ="width=device-width , initial-scale = 1.0">
-    <title>Temu2</title>
-    <link rel="stylesheet" href="../../css/style.css" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coșul Meu</title>
+  <link rel="stylesheet" href="../../css/style.css" />
+  <style>
+    .cart-container { max-width: 800px; margin: 40px auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border-bottom: 1px solid #ddd; padding: 10px; text-align: center; }
+    img { width: 60px; }
+    .total { text-align: right; margin-top: 20px; font-weight: bold; font-size: 18px; }
+    button.remove { background: #dc3545; color: #fff; border: none; padding: 6px 10px; border-radius: 5px; cursor: pointer; }
+    button.remove:hover { background: #b02a37; }
+    input.qty { width: 50px; text-align: center; }
+  </style>
+</head>
 <body>
-    <div class="header">
+  <div class="header">
     <div class="container">
-        <div class="logo">
-            <img src = "poze/temulogo.png" width = 200px>
-        </div>
-        <nav>
-            <ul id="MenuItems">
-                <li><a href = "index.html">Home</a></li>
-                <li><a href = "cart.html"><img src ="poze/cart-icon.png" width= 30px  height = 30px></a></li>
-                <li><a href = "login.html">Account</a></li>
-            </ul>
-        </nav>
+      <div class="logo">
+        <img src="poze/temulogo.png" width="200px">
+      </div>
+      <nav>
+        <ul id="MenuItems">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="cos.html"><img src="poze/cart-icon.png" width="30px" height="30px"></a></li>
+          <li><a href="login.html">Account</a></li>
+        </ul>
+      </nav>
     </div>
+  </div>
 
-       <div class = "col-2">
-            <h4>Sumar comanda</h4>
-            <p>Cost produse</p>
-            <p>Cost livrare</p>
-        </div>
-    </body>
-    </head>
-    </html>
+  <div class="cart-container">
+    <h2>Coșul tău</h2>
+    <table id="cartTable">
+      <thead>
+        <tr>
+          <th>Produs</th>
+          <th>Pret (Lei)</th>
+          <th>Cantitate</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="total" id="cartTotal">Total: 0 Lei</div>
+  </div>
+
+  <script>
+    function getLoggedUser() {
+      return localStorage.getItem("loggedInUser");
+    }
+
+    function getCartKey() {
+      const user = getLoggedUser();
+      return user ? `cart_${user}` : "cart_guest";
+    }
+
+    function getCart() {
+      const key = getCartKey();
+      return JSON.parse(localStorage.getItem(key)) || [];
+    }
+
+    function saveCart(cart) {
+      const key = getCartKey();
+      localStorage.setItem(key, JSON.stringify(cart));
+    }
+
+    function renderCart() {
+      const cart = getCart();
+      const tbody = document.querySelector("#cartTable tbody");
+      tbody.innerHTML = "";
+
+      if (cart.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5">Coșul este gol.</td></tr>`;
+        document.getElementById("cartTotal").textContent = "Total: 0 Lei";
+        return;
+      }
+
+      let total = 0;
+      cart.forEach((item, index) => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td><img src="${item.img}" alt="${item.name}"><br>${item.name}</td>
+          <td>${item.price}</td>
+          <td><input type="number" class="qty" min="1" value="${item.quantity}" data-index="${index}"></td>
+          <td>${itemTotal}</td>
+          <td><button class="remove" data-index="${index}">Șterge</button></td>
+        `;
+        tbody.appendChild(row);
+      });
+
+      document.getElementById("cartTotal").textContent = "Total: " + total + " Lei";
+
+      // Quantity change
+      document.querySelectorAll(".qty").forEach(input => {
+        input.addEventListener("change", e => {
+          const index = e.target.dataset.index;
+          const cart = getCart();
+          const newQty = parseInt(e.target.value);
+          if (newQty > 0) {
+            cart[index].quantity = newQty;
+            saveCart(cart);
+            renderCart();
+          }
+        });
+      });
+
+      // Remove item
+      document.querySelectorAll(".remove").forEach(btn => {
+        btn.addEventListener("click", e => {
+          const index = e.target.dataset.index;
+          let cart = getCart();
+          cart.splice(index, 1);
+          saveCart(cart);
+          renderCart();
+        });
+      });
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

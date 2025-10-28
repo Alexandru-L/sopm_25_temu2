@@ -1,4 +1,9 @@
-
+.header .container {
+  display: flex;
+  justify-content: space-between; /* logo left, menu right */
+  align-items: center;
+  padding: 10px 20px;
+}
 .auth-page {
   display: flex;
   align-items: center;
@@ -111,7 +116,56 @@
   cursor: pointer;
   margin-top: 20px;
 }
+nav {
+  display: flex;
+  justify-content:center; 
+  align-items: center;
+  padding: 10px 20px;
+}
+.col-4{
+    flex-basis: 25%;
+    min-width: 200px;
+    margin-bottom: 50px;
+    transition: transform 0.5s;
+}
+.col-4 p{
+    font-size: 15px;
 
+}
+.col-4:hover{
+    transform: translateY(-4px);
+    transform: scale(1.03);
+}
+.col-4:hover p {
+    color: #ff0000;
+}
+.col-4:hover h4{
+    color: #ff0000a6;
+}
+.col-4 img{
+    width: 100%;
+}
+.row{
+    display : flex;
+    align-items: center;
+    flex-wrap : wrap;
+    justify-content:center;
+}
+.buy-now {
+    width: 100%;          
+    background-color: #fa0202;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 0;   
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.buy-now:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
 .dashboard button:hover {
   background: #b02a37;
 }
@@ -126,7 +180,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background-color: #333;
       padding: 10px 20px;
     }
 

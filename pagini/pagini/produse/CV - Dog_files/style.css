@@ -1,0 +1,155 @@
+<style>
+    /* Reset minimal */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+	.header {
+       display: flex;
+       justify-content: space-between; /* textul la stânga, imaginea la dreapta */
+       align-items: flex-start;
+	}
+	.header img {
+	   width: 200px;
+	   height: auto;
+	}
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      color: #222;
+      background: #fff;
+      line-height: 1.4;
+      padding: 20px;
+    }
+
+    #container {
+      max-width: 900px;
+      margin: 0 auto;
+      border: 1px solid #ddd;
+      padding: 18px;
+      background: #fff;
+    }
+
+    /* Header */
+    #header {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    #header h1 {
+      font-size: 28px;
+      margin-bottom: 6px;
+      color: #111;
+    }
+
+    #header p {
+      max-width: 640px;
+    }
+
+/* partea stângă — About, Courses, etc. */
+#header .left {
+  flex: 1;             /* ocupă restul spațiului */
+  max-width: 70%;      /* limitează lățimea pentru a lăsa loc pozei */
+}
+
+/* imaginea din dreapta */
+.portrait {
+  width: 250px;
+  height: auto;
+  margin-left: 20px;
+  border: 1px solid #ccc;
+}
+
+/* banda albastră doar pe lățimea conținutului stâng */
+	.band {
+  background: #cfe5fb;
+  border-top: 1px solid #a7c7e9;
+  border-bottom: 1px solid #a7c7e9;
+  padding: 8px 12px;
+  margin-top: 14px;
+  margin-bottom: 10px;
+  width: fit-content;  /* <— cheia! banda se micșorează cât textul */
+}
+    .band h2 {
+      color: #1f5ea6;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .entry {
+      margin-bottom: 14px;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    /* Table styling */
+    table.courses {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 640px;
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    table.courses th,
+    table.courses td {
+      border: 1px solid #9aa6af;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    table.courses th {
+      background: #f2f7fb;
+      font-weight: bold;
+    }
+
+    table.courses td a {
+      color: #1f5ea6;
+      text-decoration: none;
+    }
+    table.courses td a:hover { text-decoration: underline; }
+
+    /* Interests small */
+    .interests {
+      margin-top: 6px;
+    }
+
+    /* Form */
+    form.pet-form {
+      margin-top: 8px;
+      font-size: 13px;
+    }
+
+    form.pet-form label {
+      display: inline-block;
+      width: 80px;
+      vertical-align: top;
+    }
+
+    form.pet-form input[type="text"],
+    form.pet-form select {
+      width: 200px;
+      padding: 4px 6px;
+      border: 1px solid #bbb;
+      border-radius: 2px;
+      margin-bottom: 6px;
+    }
+
+    form.pet-form input[type="submit"] {
+      padding: 6px 12px;
+      border: 1px solid #1f5ea6;
+      background: #2b6fb6;
+      color: #fff;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    form.pet-form input[type="submit"]:hover { opacity: 0.95; }
+
+    /* Responsive: portrait below content on small screens */
+    @media (max-width: 700px) {
+      #header { flex-direction: column; }
+      .portrait { width: 100%; max-width: 320px; align-self: center; }
+    }
+  </style>

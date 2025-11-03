@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Aspirator Vertical 4 in 1</title>
   <link rel="stylesheet" href="../../css/style.css" />
+  <style>
+    main { display: flex; gap: 20px; padding: 20px; }
+    aside img { margin-bottom: 10px; cursor: pointer; border: 1px solid #ccc; }
+    .col-4 { max-width: 500px; }
+    .buy-now { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px; }
+    .buy-now:hover { background: #218838; }
+  </style>
 </head>
 <body>
   <header>
@@ -26,11 +33,9 @@
 
   <main>
     <aside>
-      <img src="../poze/aspirator1.png" alt="Aspirator Vertical 4 in 1" width="300">
+      <img src="../poze/aspirator1.png" alt="Aspirator Vertical 4 in 1" width="300" id="mainImage">
       <div>
-        <img src="../poze/aspirator1.png" alt="thumb1" width="60">
-        <img src="../poze/aspirator2.png" alt="thumb2" width="60">
-        <img src="../poze/aspirator3.png" alt="thumb3" width="60">
+        <img src="../poze/aspirator1.png" alt="thumb1" width="60" onclick="document.getElementById('mainImage').src=this.src">
       </div>
     </aside>
 
@@ -56,12 +61,26 @@
   </footer>
 
   <script>
+    // Folosim aceeasi cheie ca in cos.html
+    function getCartKey() {
+      return "cart_guest";
+    }
+
     function getCart() {
-      return JSON.parse(localStorage.getItem("cart")) || [];
+      const key = getCartKey();
+      try {
+        return JSON.parse(localStorage.getItem(key)) || [];
+      } catch(e) {
+        console.error("Eroare la citirea coșului:", e);
+        return [];
+      }
     }
+
     function saveCart(cart) {
-      localStorage.setItem("cart", JSON.stringify(cart));
+      const key = getCartKey();
+      localStorage.setItem(key, JSON.stringify(cart));
     }
+
     function addToCart(product) {
       let cart = getCart();
       const existing = cart.find(item => item.name === product.name);
@@ -70,6 +89,7 @@
       saveCart(cart);
       alert(`${product.name} a fost adăugat în coș!`);
     }
+
     document.querySelector(".buy-now").addEventListener("click", e => {
       const parent = e.target.closest(".col-4");
       const product = {

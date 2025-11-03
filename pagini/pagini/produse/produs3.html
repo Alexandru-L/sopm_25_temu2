@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mașina de spălat rufe Samsung</title>
+  <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<body>
+<header>
+  <div class="header">
+    <div class="container">
+      <div class="logo">
+        <img src="../poze/temulogo.png" width="200px" alt="Temu Logo">
+      </div>
+      <nav>
+        <ul id="MenuItems">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../cos.html"><img src="../poze/cart-icon.png" width="30px" height="30px" alt="Coș"></a></li>
+          <li><a href="../login.html">Account</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <img src="../poze/masinaspalat2.png" alt="Mașina de spălat rufe Samsung" width="300" id="mainImage">
+    <div>
+      <img src="../poze/masinaspalat2.png" width="60" onclick="document.getElementById('mainImage').src=this.src">
+    </div>
+  </aside>
+
+  <section>
+    <div class="col-4" data-price="699" data-name="Mașina de spălat rufe Samsung" data-image="../poze/masinaspalat2.png">
+      <h2>Mașina de spălat rufe Samsung, eficiență mare și design modern</h2>
+      <p>⭐ <strong>4.5</strong> (45 review-uri)</p>
+      <p class="price">699 Lei</p>
+      <button class="buy-now">Adaugă în coș</button>
+      <div class="buyback">
+        <strong>Easy BuyBack:</strong> Primești 50 Lei BONUS la schimb cu o mașină de spălat veche.
+      </div>
+    </div>
+    <p style="margin-top:20px;">Livrare gratuită în toată țara.</p>
+  </section>
+</main>
+
+<footer>
+  <hr>
+  <p>&copy; 2025 TEMU2. Niciun drept rezervat.</p>
+</footer>
+
+<script>
+function getCartKey(){return "cart_guest";}
+function getCart(){try{return JSON.parse(localStorage.getItem(getCartKey()))||[];}catch(e){return[];}}
+function saveCart(cart){localStorage.setItem(getCartKey(),JSON.stringify(cart));}
+function addToCart(product){let cart=getCart();const existing=cart.find(item=>item.name===product.name);existing?existing.quantity+=1:cart.push({...product,quantity:1});saveCart(cart);alert(`${product.name} a fost adăugat în coș!`);}
+document.querySelector(".buy-now").addEventListener("click",e=>{const parent=e.target.closest(".col-4");const product={name:parent.dataset.name,price:parseFloat(parent.dataset.price),img:parent.dataset.image};addToCart(product);});
+</script>
+</body>
+</html>
